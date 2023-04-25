@@ -165,7 +165,7 @@
                             <h5 class="card-title">GoPro HERO6 4K Action Camera - Black</h5>
                             <p class="card-text">$790.50</p>
                             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart()">Add to
+                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(e)">Add to
                                     cart</a>
                                 <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i
                                         class="fas fa-heart fa-lg text-secondary px-1"></i></a>
@@ -181,7 +181,7 @@
                             <h5 class="card-title">Canon camera 20x zoom, Black color EOS 2000</h5>
                             <p class="card-text">$320.00</p>
                             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart()">Add to
+                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(e)">Add to
                                     cart</a>
                                 <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i
                                         class="fas fa-heart fa-lg text-secondary px-1"></i></a>
@@ -197,7 +197,7 @@
                             <h5 class="card-title">Xiaomi Redmi 8 Original Global Version 4GB</h5>
                             <p class="card-text">$120.00</p>
                             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart()">Add to
+                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(e)">Add to
                                     cart</a>
                                 <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i
                                         class="fas fa-heart fa-lg text-secondary px-1"></i></a>
@@ -213,7 +213,7 @@
                             <h5 class="card-title">Apple iPhone 12 Pro 6.1" RAM 6GB 512GB Unlocked</h5>
                             <p class="card-text">$120.00</p>
                             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart()">Add to
+                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(e)">Add to
                                     cart</a>
                                 <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i
                                         class="fas fa-heart fa-lg text-secondary px-1"></i></a>
@@ -619,27 +619,37 @@
         crossorigin="anonymous"></script>
 
     <script>
-        function add_to_cart() {
-            gtag("event", "add_to_cart", {
-                currency: "USD",
-                value: 75.00,
-                items: [
-                    {
-                        item_id: "SKU_12345",
-                        item_name: "Quality Men's Hoodie for Winter, Men's Fashion Casual Hoodie",
-                        affiliation: "MDB",
-                        coupon: "none",
-                        discount: 0,
-                        index: 0,
-                        item_brand: "Google",
-                        item_category: "Regular",
-                        item_category2: "Cotton, Jeans",
-                        item_category3: "Reebook",
-                        item_variant: "Brown",
-                        price: 75.00,
-                        quantity: 1
-                    }
-                ]
+        function add_to_cart(e) {
+            // gtag("event", "add_to_cart", {
+            //     currency: "USD",
+            //     value: 75.00,
+            //     items: [
+            //         {
+            //             item_id: "SKU_12345",
+            //             item_name: "Quality Men's Hoodie for Winter, Men's Fashion Casual Hoodie",
+            //             affiliation: "MDB",
+            //             coupon: "none",
+            //             discount: 0,
+            //             index: 0,
+            //             item_brand: "Google",
+            //             item_category: "Regular",
+            //             item_category2: "Cotton, Jeans",
+            //             item_category3: "Reebook",
+            //             item_variant: "Brown",
+            //             price: 75.00,
+            //             quantity: 1
+            //         }
+            //     ]
+            // });
+            var price = event.target.closest('.card-body').querySelector('p').innerText.slice(1,-1)
+            var name = event.target.closest('.card-body').querySelector('h5').innerText
+        
+            utag.link({
+                "tealium_event": "cart_add",
+                "product_id": ["12345"],
+                "product_name": [name],
+                "product_quantity": ["1"],
+                "product_price": [price]
             });
         }
     </script>
