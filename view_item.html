@@ -34,7 +34,7 @@
   <!-- End Google Tag Manager -->
 </head>
 
-<body>
+<body onload="view()">
 
   <script type="text/javascript">
     var utag_data = {
@@ -575,7 +575,16 @@
     crossorigin="anonymous"></script>
 
   <script>
-
+    function view() {
+      utag.view({
+        "tealium_event": "product_view",
+        "page_type": "product_quick_view",
+        "page_name": "view item",
+        "product_id": ["12345"],
+        "product_name": ["Quality Men's Hoodie for Winter, Men's Fashion"]
+      }
+      );
+    }
   </script>
 </body>
 
