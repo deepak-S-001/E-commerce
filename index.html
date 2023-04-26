@@ -48,7 +48,7 @@
 <body>
     <script type="text/javascript">
         var utag_data = {
-            "product_view" : "true"
+            "product_view": "true"
         }
     </script>
 
@@ -230,7 +230,8 @@
                             <h5 class="card-title">Apple Watch Series 1 Sport Case 38mm Black</h5>
                             <p class="card-text">$790.50</p>
                             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(event)">Add to cart</a>
+                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(event)">Add to
+                                    cart</a>
                                 <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i
                                         class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                             </div>
@@ -245,7 +246,8 @@
                             <h5 class="card-title">T-shirts with multiple colors, for men and lady</h5>
                             <p class="card-text">$120.00</p>
                             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(event)">Add to cart</a>
+                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(event)">Add to
+                                    cart</a>
                                 <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i
                                         class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                             </div>
@@ -260,7 +262,8 @@
                             <h5 class="card-title">Gaming Headset 32db Blackbuilt in mic</h5>
                             <p class="card-text">$99.50</p>
                             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(event)">Add to cart</a>
+                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(event)">Add to
+                                    cart</a>
                                 <a href="#!" class="btn btn-light border icon-hover px-2 pt-2"><i
                                         class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                             </div>
@@ -275,7 +278,8 @@
                             <h5 class="card-title">T-shirts with multiple colors, for men and lady</h5>
                             <p class="card-text">$120.00</p>
                             <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(event)">Add to cart</a>
+                                <a href="#!" class="btn btn-primary shadow-0 me-1" onclick="add_to_cart(event)">Add to
+                                    cart</a>
                                 <a href="#!" class="btn btn-light border px-2 pt-2 icon-hover"><i
                                         class="fas fa-heart fa-lg text-secondary px-1"></i></a>
                             </div>
@@ -540,14 +544,16 @@
                         <!-- Links -->
                         <h6 class="text-uppercase text-dark fw-bold mb-2">Newsletter</h6>
                         <p class="text-muted">Stay in touch with latest updates about our products and offers</p>
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control border" placeholder="Email" aria-label="Email"
-                                aria-describedby="button-addon2" />
-                            <button class="btn btn-light border shadow-0" type="button" id="button-addon2"
-                                data-mdb-ripple-color="dark">
-                                Join
-                            </button>
-                        </div>
+                        <form action="./thank_you.html" name="newsletter" id="newsletterForm">
+                            <div class="input-group mb-3">
+                                <input type="email" name="email" class="form-control border" placeholder="Email"
+                                    aria-label="Email" aria-describedby="button-addon2" required />
+                                <button class="btn btn-light border shadow-0" type="submit" id="button-addon2"
+                                    data-mdb-ripple-color="dark">
+                                    Join
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -642,7 +648,7 @@
             //         }
             //     ]
             // });
-            var price = event.target.closest('.card-body').querySelector('p').innerText.slice(1,-1)
+            var price = event.target.closest('.card-body').querySelector('p').innerText.slice(1, -1)
             var name = event.target.closest('.card-body').querySelector('h5').innerText
             utag.link({
                 "tealium_event": "cart_add",
@@ -652,6 +658,18 @@
                 "product_price": [price]
             });
         }
+
+        document.newsletter.addEventListener('submit', function (e) {
+            sessionStorage.setItem("form_name", "newsletter")
+            var encrypt = CryptoJS.AES.encrypt(document.newsletter.email.value, "email");
+            utag.link({
+                "tealium_event": "form_submission",
+                "form_name": "newsletter",
+                "form_url": "/thank_you_page.html",
+                "form_id": "newsletterForm",
+            });
+        })
+
     </script>
 </body>
 

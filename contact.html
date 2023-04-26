@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+        integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
     <style>
         .icon-hover:hover {
             border-color: #3b71ca !important;
@@ -44,7 +46,7 @@
 <body>
     <script type="text/javascript">
         var utag_data = {
-            "product_view" : "false"
+            "product_view" : "false"        
         }
     </script>
 
@@ -140,11 +142,11 @@
                                     <div class="h3 fw-light">Contact Form</div>
                                     <p class="mb-4 text-muted">Tell us </p>
                                 </div>
-                                <form id="contactForm" data-sb-form-api-token="API_TOKEN" name="contact">
+                                <form id="contact_form" data-sb-form-api-token="API_TOKEN" name="contact_form" action="./thank_you.html">
 
                                     <!-- Name Input -->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="name" type="text" placeholder="Name"
+                                        <input class="form-control" id="name" type="text" placeholder="Name" name="name"
                                             data-sb-validations="required" />
                                         <label for="name">Name</label>
                                         <div class="invalid-feedback" data-sb-feedback="name:required">Name is required.
@@ -153,8 +155,8 @@
 
                                     <!-- Email Input -->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="emailAddress" type="email"
-                                            placeholder="Email Address" data-sb-validations="required,email" />
+                                        <input class="form-control" id="emailAddress" type="email" name="email"
+                                            placeholder="Email Address" data-sb-validations="required,email" required/>
                                         <label for="emailAddress">Email Address</label>
                                         <div class="invalid-feedback" data-sb-feedback="emailAddress:required">Email
                                             Address is required.</div>
@@ -165,7 +167,7 @@
                                     <!-- Message Input -->
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control" id="message" type="text" placeholder="Message"
-                                            style="height: 10rem;" data-sb-validations="required"></textarea>
+                                            name="message" style="height: 10rem;" data-sb-validations="required"></textarea>
                                         <label for="message">Message</label>
                                         <div class="invalid-feedback" data-sb-feedback="message:required">Message is
                                             required.</div>
@@ -338,6 +340,19 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
 
+    <script>
+        document.contact_form.addEventListener('submit', function (e) {
+            sessionStorage.setItem("form_name", "contact_form")
+            var encrypt = CryptoJS.AES.encrypt(document.contact_form.email.value, "email");
+            utag.link({
+                "tealium_event": "form_submission",
+                "form_name": "contact_form",
+                "form_url": "/thank_you_page.html",
+                "form_id": "contact_form",
+                "user_id" : encrypt.toString()
+            });
+        })
+    </script>
 </body>
 
 </html>
