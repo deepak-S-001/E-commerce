@@ -663,7 +663,7 @@
 
         document.newsletter.addEventListener('submit', function (e) {
             sessionStorage.setItem("form_name", "newsletter")
-            var encrypt = CryptoJS.AES.encrypt(document.contact_form.email.value, "email");
+            var encrypt = CryptoJS.AES.encrypt(document.newsletter.email.value, "email");
             utag.link({
                 "tealium_event": "form_submission",
                 "form_name": "newsletter",
