@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+        integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
     <style>
         .icon-hover:hover {
             border-color: #3b71ca !important;
@@ -661,11 +663,13 @@
 
         document.newsletter.addEventListener('submit', function (e) {
             sessionStorage.setItem("form_name", "newsletter")
+            var encrypt = CryptoJS.AES.encrypt(document.contact_form.email.value, "email");
             utag.link({
                 "tealium_event": "form_submission",
                 "form_name": "newsletter",
                 "form_url": "/thank_you_page.html",
                 "form_id": "newsletterForm",
+                "user_id" : encrypt.toString()
             });
         })
 
